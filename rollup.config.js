@@ -3,7 +3,6 @@ import resolve from "rollup-plugin-node-resolve";
 import commonjs from "rollup-plugin-commonjs";
 import livereload from "rollup-plugin-livereload";
 import babel from "rollup-plugin-babel";
-// import { eslint } from "rollup-plugin-eslint";
 
 import postcss from "rollup-plugin-postcss";
 
@@ -13,27 +12,26 @@ import {
 
 const production = !process.env.ROLLUP_WATCH;
 
-export default {
+
+const outputPath = "public/dist";
+
+const browserConfig = {
     input: "src/main.js",
     output: {
-        sourcemap: true,
+        sourcemap: !production,
         format: "iife",
         name: "app",
-        file: "public/bundle.js"
+        file: `${outputPath}/static/bundle.js`
     },
     plugins: [
-        // eslint({ exclude: [ "public/**", "assets/**"]}),
-        // stylus({
-        //     output: "public"
-        // }),
         postcss({
             extensions: [".css", ".styl"],
-            extract: "public/bundle.global.css"
+            extract: `${outputPath}/static/bundle.global.css`
         }),
         svelte({
             dev: !production,
             css: css => {
-                css.write("public/bundle.css");
+                css.write(`${outputPath}/static/bundle.css`);
             }
         }),
         resolve({
@@ -50,3 +48,23 @@ export default {
         clearScreen: false
     }
 };
+
+const serverConfig = {
+    input: "src/App.svelte",
+    output: {
+        sourcemap: false,
+        format: "cjs",
+        name: "app",
+        file: "public/dist/App.js"
+    },
+    plugins: [
+        svelte({
+            generate: "ssr"
+        }),
+        resolve(),
+        commonjs(),
+        production && terser()
+    ]
+};
+
+export default [browserConfig, serverConfig];

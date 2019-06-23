@@ -15,13 +15,15 @@ module.exports = {
     parserOptions: {
         sourceType: "module",
         ecmaVersion: 2019,
+        ecmaFeatures: {
+            jsx: false,
+            experimentalObjectRestSpread: true
+        }
     },
     extends: [
         "eslint:recommended"
     ],
     rules: {
-        "no-console": "off",
-        "no-debugger": "off",
         camelcase: "off",
         indent: ["error", 4],
         quotes: ["error", "double"],
