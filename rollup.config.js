@@ -5,6 +5,8 @@ import livereload from "rollup-plugin-livereload";
 import babel from "rollup-plugin-babel";
 // import { eslint } from "rollup-plugin-eslint";
 
+import postcss from "rollup-plugin-postcss";
+
 import {
     terser
 } from "rollup-plugin-terser";
@@ -21,6 +23,13 @@ export default {
     },
     plugins: [
         // eslint({ exclude: [ "public/**", "assets/**"]}),
+        // stylus({
+        //     output: "public"
+        // }),
+        postcss({
+            extensions: [".css", ".styl"],
+            extract: "public/bundle.global.css"
+        }),
         svelte({
             dev: !production,
             css: css => {
