@@ -31,7 +31,7 @@ const browserConfig = {
         svelte({
             dev: !production,
             css: css => {
-                css.write(`${outputPath}/static/bundle.css`);
+                css.write(`${outputPath}/static/bundle.css`, !production);
             }
         }),
         resolve({
