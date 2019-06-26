@@ -5,16 +5,25 @@
     <meta charset='utf8'>
     <meta name='viewport' content='width=device-width'>
 
-    <title>Svelte app</title>
+    <title>My Media Manager</title>
 
-    <link rel='icon' type='image/png' href='dist/favicon.png'>
-    <link rel='stylesheet' href='dist/static/bundle.css'>
+    <link rel='icon' type='image/png' href='/favicon.png'>
+    <link rel="stylesheet" href="/dist/static/bundle.global.css">
+    <link rel='stylesheet' href='/dist/static/bundle.css'>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
 </head>
 
 <body>
 
-    <div id="app"></div>
-    <script src='dist/static/bundle.js'></script>
+    <div id="my-media-manager"></div>
+    <script src='/dist/static/bundle.js'></script>
 </body>
 
 </html>

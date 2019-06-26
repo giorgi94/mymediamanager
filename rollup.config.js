@@ -1,4 +1,5 @@
 import svelte from "rollup-plugin-svelte";
+import replace from "rollup-plugin-replace";
 import resolve from "rollup-plugin-node-resolve";
 import commonjs from "rollup-plugin-commonjs";
 import livereload from "rollup-plugin-livereload";
@@ -24,6 +25,10 @@ const browserConfig = {
         file: `${outputPath}/static/bundle.js`
     },
     plugins: [
+        replace({
+            ENV: JSON.stringify(production ? "production" : "development"),
+            BROWSER: JSON.stringify(true),
+        }),
         postcss({
             extensions: [".css", ".styl"],
             extract: `${outputPath}/static/bundle.global.css`
@@ -58,6 +63,10 @@ const serverConfig = {
         file: "public/dist/App.js"
     },
     plugins: [
+        replace({
+            ENV: JSON.stringify(production ? "production" : "development"),
+            BROWSER: JSON.stringify(false),
+        }),
         svelte({
             generate: "ssr"
         }),
